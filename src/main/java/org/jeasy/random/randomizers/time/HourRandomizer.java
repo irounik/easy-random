@@ -39,7 +39,7 @@ public class HourRandomizer implements Randomizer<Integer> {
     private final IntegerRangeRandomizer hourRandomizer;
 
     public HourRandomizer() {
-        hourRandomizer = new IntegerRangeRandomizer(MIN_HOUR, MAX_HOUR);
+        hourRandomizer = new IntegerRangeRandomizer(MIN_HOUR, MAX_HOUR + 1); // Adding 1 since max value is exclusive
     }
 
     public HourRandomizer(final long seed) {

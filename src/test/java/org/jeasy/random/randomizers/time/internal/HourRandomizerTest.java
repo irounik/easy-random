@@ -23,15 +23,16 @@
  */
 package org.jeasy.random.randomizers.time.internal;
 
-import static org.jeasy.random.randomizers.time.HourRandomizer.MAX_HOUR;
-import static org.jeasy.random.randomizers.time.HourRandomizer.MIN_HOUR;
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.jeasy.random.randomizers.AbstractRandomizerTest;
+import org.jeasy.random.randomizers.time.HourRandomizer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.jeasy.random.randomizers.AbstractRandomizerTest;
-import org.jeasy.random.randomizers.time.HourRandomizer;
+import java.util.stream.IntStream;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.jeasy.random.randomizers.time.HourRandomizer.MAX_HOUR;
+import static org.jeasy.random.randomizers.time.HourRandomizer.MIN_HOUR;
 
 class HourRandomizerTest extends AbstractRandomizerTest<Integer> {
 
@@ -62,4 +63,21 @@ class HourRandomizerTest extends AbstractRandomizerTest<Integer> {
         // Then
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void generatedValueMaximumShouldBeMaxHour() {
+        // Given
+        HourRandomizer hourRandomizer = new HourRandomizer();
+        Integer expected = MAX_HOUR;
+
+        // When
+        int maxHour = IntStream.range(0, 1_000_000)
+                .map(e -> hourRandomizer.getRandomValue())
+                .max()
+                .orElseThrow();
+
+        // Then
+        assertThat(maxHour).isEqualTo(expected);
+    }
+
 }
